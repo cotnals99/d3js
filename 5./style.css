@@ -45,3 +45,7 @@ svg{
     text-anchor: start;
     fill: red;
 }
+
+.chart4 {
+    transform: translateX(10%);
+}

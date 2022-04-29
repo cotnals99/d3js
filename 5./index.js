@@ -48,7 +48,7 @@ d3.select('.bars')
   .join('rect')
   .attr('width', (d)=>{
       let scaleFactor = 0.00004;
-      console.log(d.population*scaleFactor);
+      // console.log(d.population*scaleFactor);
       return d.population * scaleFactor;
   })
   .attr('height', 19)
@@ -75,3 +75,39 @@ d3.select('.labels2')
     return d.population * scaleFactor + 5;
   })
   .text((d)=>{return d.population})
+
+
+
+//chart4
+
+function getData(){
+  let data = []
+  let numItems = Math.ceil(Math.random()*10)
+  // console.log( numItems)
+
+  for(let i=0; i<numItems; i++){
+    data.push(Math.random()*30)
+  }
+  console.log(data)
+  return data
+}
+
+function update(data){
+  d3.select('.chart4')
+    .selectAll('circle')
+    .data(data)
+    .join('circle')
+    .attr('cx', (d, i)=>{return i * 100 + 10})
+    .attr('cy', 100)
+    .attr('r', (d)=>{return d})
+    .style('fill', (d)=>{return d>20? 'orange' : 'blue'})
+}
+
+function updateAll(){
+  let myData = getData();
+  update(myData);
+}
+
+updateAll();
+
+d3.select('button').on('click', updateAll)
