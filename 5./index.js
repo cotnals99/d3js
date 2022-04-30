@@ -80,34 +80,35 @@ d3.select('.labels2')
 
 //chart4
 
-function getData(){
-  let data = []
-  let numItems = Math.ceil(Math.random()*10)
-  // console.log( numItems)
-
-  for(let i=0; i<numItems; i++){
-    data.push(Math.random()*30)
+function createData(){
+  let data = [];
+  let numIndex = Math.ceil(Math.random()*5);
+  console.log(numIndex);
+  for(i=0; i<numIndex; i++){
+    data.push(Math.random()*100)
   }
   console.log(data)
   return data
 }
 
-function update(data){
+function updateChart(data){
   d3.select('.chart4')
     .selectAll('circle')
     .data(data)
     .join('circle')
-    .attr('cx', (d, i)=>{return i * 100 + 10})
+    .attr('cx', (d,i)=>{return i*100})
     .attr('cy', 100)
-    .attr('r', (d)=>{return d})
-    .style('fill', (d)=>{return d>20? 'orange' : 'blue'})
+    .attr('r', (d)=>{return d*0.5})
+    .style('fill', (d)=>{return d>50? 'orange' : 'grey'})
 }
 
 function updateAll(){
-  let myData = getData();
-  update(myData);
+  let myData = createData();
+  updateChart(myData);
 }
 
 updateAll();
 
 d3.select('button').on('click', updateAll)
+
+
