@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        path {
+            fill: none;
+            stroke: #999;
+            /* stroke-width: 3px; */
+        }
+
+        circle {
+            fill: none;
+            stroke: #aaa;
+        }
+    </style>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <svg width="700" height="110">
+        <path>
+
+        </path>
+    </svg>
+</body>
+<script>
+
+    let lineGenerator = d3.line().curve(d3.curveCardinal);
+    let points = [
+        [0, 80],
+        [100, 100],
+        [200, 30],
+        [300, 50],
+        [400, 40],
+        [500, 80]
+    ];
+
+    let pathData = lineGenerator(points)
+
+    d3.select('path').attr('d', pathData)
+
+    //Add points
+
+    d3.select('svg').selectAll('circle').data(points).join('circle').attr('cx', (d) => { return d[0] }).attr('cy', (d) => { return d[1] }).attr('r', 3)
+
+</script>
+
+</html>

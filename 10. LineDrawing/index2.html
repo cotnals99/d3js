@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        path {
+            fill: none;
+            stroke: #999;
+            /* stroke-width: 3px; */
+        }
+        g {
+
+        }
+    </style>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <svg width="700" height="160" style="background-color: lightblue;">
+    <g transform="translate(20, 0)"></g>
+    </svg>
+</body>
+<script>
+
+    let xScale = d3.scaleLinear().domain([0, 6]).range([0, 600])
+    let yScale = d3.scaleLinear().domain([0, 80]).range([150, 0])
+
+    let points = [
+        {value: 10},
+        {value: 50},
+        {value: 30},
+        {value: 40},
+        {value: 20},
+        {value: 70},
+        {value: 50}
+    ]
+
+    let lineGenerator = d3.line()
+                            .x((d, i)=>{return xScale(i)})
+                            .y((d)=> {return yScale(d.value)})
+
+
+    let line = lineGenerator(points);
+
+    d3.select('g').append('path').attr('d', line)
+    
+
+</script>
+
+</html>
