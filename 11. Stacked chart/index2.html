@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+
+    <svg width="700" height="200" style="background-color:azure">
+        <g>
+
+        </g>
+    </svg>
+    <script>
+        let colors = ['#FBB65B', '#513551', '#de3163'];
+        let data = [
+            { day: 'Mon', apricots: 120, blueberries: 180, cherries: 100 },
+            { day: 'Tue', apricots: 60, blueberries: 185, cherries: 105 },
+            { day: 'Wed', apricots: 100, blueberries: 215, cherries: 110 },
+            { day: 'Thu', apricots: 80, blueberries: 230, cherries: 105 },
+            { day: 'Fri', apricots: 120, blueberries: 240, cherries: 105 }
+        ]
+
+        let yScale = d3.scaleLinear().domain([0, 600]).range([200, 0])
+        // let yScale = d3.scaleLinear().domain([0, 1]).range([200, 0])
+
+        let areaGenerator = d3.area()
+                                .x((d,i)=>{ return i * 100})
+                                .y0((d)=>{return yScale(d[0])})
+                                .y1((d)=>{return yScale(d[1])})
+
+
+
+        let stack = d3.stack().keys(['apricots', 'blueberries', 'cherries']).order(d3.stackOrderAscending).offset(d3.stackOffsetWiggle)
+        let stackedSeries = stack(data);
+
+        d3.select('g')
+            .selectAll('path')
+            .data(stackedSeries)
+	.join('path')
+	.style('fill', function(d, i) {
+		return colors[i];
+	})
+	.attr('d', areaGenerator)
+    </script>
+
+</body>
+
+</html>
